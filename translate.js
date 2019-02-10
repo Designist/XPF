@@ -6,10 +6,14 @@ const fs = require("fs");
 // 	console.log(data);
 // })
 
+function print(val) {
+	console.log(val)
+}
+
 function read_rules(filename) {
-	let a = fs.readFileSync(filename, "utf8")
-	var data = a.split("\n")
-	var headers = data[0].split(",")
+	const a = fs.readFileSync(filename, "utf8")
+	const data = a.split("\n")
+	const headers = data[0].split(",")
 	var rule_list = []
 	for (var i=1; i<data.length; i++) {
 		if (data[i].length > 0 && data[i][0] != "#") {
@@ -26,7 +30,23 @@ function read_rules(filename) {
 
 class SubRule {
 	constructor(rule, classes) {
-		// TODO
+		const headers = ["sfrom", "sto", "precede", "follow", "weight"]
+		for (var i=0; i<headers.length; i++) {
+			let key = headers[i]
+			let value = rule[key]
+			const re = new RegExp('{.*}')
+			while (re.test(value)) {
+				// Replacement for Python dictionary format() method:
+				value = value.replace(/[\{\}']+/g,'')
+				let format_value = value.replace(/[\{\}\(\)\[\]']+/g,'')
+				value = value.replace(format_value, classes[format_value])
+			}
+			this[key] = value
+		}
+		this.weight = parseFloat(this.weight)
+        this.sfrom = new RegExp(this.sfrom)
+        this.precede = new RegExp(this.precede+"$")
+        this.follow = new RegExp("^"+this.follow)
 	}
 }
 
@@ -43,17 +63,17 @@ class AlphabetToIpa {
     // Iterate over rules:
     for (var i=0; i<this.rule_list.length; i++) {
     	let rule = this.rule_list[i]
-    	console.log(rule["type"])
     	if (rule["type"] == "pre") { 
     		this.pre.push((rule["sfrom"], rule["sto"]))
     	} else if (rule["type"] == "class") {
     		this.classes[rule["sfrom"]] = rule["sto"]
     	} else if (rule["type"] == "sub") {
     		let subrule = new SubRule(rule, this.classes)
+    	} else if (rule["type"] == "ipasub") {
+    		let ipasubrule = new SubRule(rule, this.classes)
     	}
     }
 
-    console.log(this.pre)
   }
 }
 	
