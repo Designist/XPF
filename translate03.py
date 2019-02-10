@@ -54,14 +54,6 @@ class subrule(object):
 
     def sub(self, x):
         return self.sfrom.sub(self.sto, x)
-
-    def __repr__(self):
-        return repr(self.__dict__)
-
-    def __lt__(self, other):
-        if not isinstance(other, subrule):
-            raise Exception("Incompatible types for comparison")
-        return [self.weight] < [other.weight]
     
             
 class alphabet2ipa(object):

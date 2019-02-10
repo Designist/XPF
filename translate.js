@@ -48,6 +48,19 @@ class SubRule {
         this.precede = new RegExp(this.precede+"$")
         this.follow = new RegExp("^"+this.follow)
 	}
+
+	sub_score(sfrom, precede, follow) {
+		if (this.sfrom.test(sfrom) && this.precede.test(precede) && this.follow.test(follow)) {
+            return this.weight
+		}
+        else {
+            return null 
+        }
+	}
+
+	sub(x) {
+        return this.sfrom.sub(self.sto, x)
+	}
 }
 
 class AlphabetToIpa {
@@ -69,8 +82,14 @@ class AlphabetToIpa {
     		this.classes[rule["sfrom"]] = rule["sto"]
     	} else if (rule["type"] == "sub") {
     		let subrule = new SubRule(rule, this.classes)
+    		this.subs.add(subrule)
     	} else if (rule["type"] == "ipasub") {
     		let ipasubrule = new SubRule(rule, this.classes)
+    		this.ipasubs.add(ipasubrule)
+    	} else if (rule["type"] == "word") {
+    		this.words[rule["sfrom"]] = rule["sto"].split()
+    	} else {
+    		console.log("Unrecognized rule type.")
     	}
     }
 
