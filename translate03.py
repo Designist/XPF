@@ -175,6 +175,7 @@ class alphabet2ipa(object):
             ## Exclude translations that didn't apply
             ##
             translations = [pair for pair in translations if not pair[0] is None]
+            
 
             ##
             ## Choose best translation
@@ -185,7 +186,6 @@ class alphabet2ipa(object):
                 continue
             
             targetList.append(translation)
-
         targetString = " ".join(targetList)
         for (weight, rule) in sorted((-rule.weight, rule)
                                      for rule in self.ipasubs):
