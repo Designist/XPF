@@ -1,3 +1,5 @@
+# Rules for testing
+# Spanish
 type,sfrom,sto,weight,precede,follow,comment
 class,front,(e|i),,,,
 class,passthrough,[abdefiklmnopstu],,,,

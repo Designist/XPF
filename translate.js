@@ -11,16 +11,26 @@ function print(val) { console.log(val) }
 function read_rules(filename) {
 	const a = fs.readFileSync(filename, "utf8")
 	const data = a.split("\n")
-	const headers = data[0].split(",")
+	let headers = data[0].split(",")
+	// Get headers:
+	for (var i=0; i<data.length; i++) {
+		if (data[i].length > 0 && data[i][0] != "#") {
+			headers = data[i].split(",")
+			break
+		}
+	}
+	// Get rules:
 	var rule_list = []
-	for (var i=1; i<data.length; i++) {
+	for (var i=0; i<data.length; i++) {
 		if (data[i].length > 0 && data[i][0] != "#") {
 			var split_rule = data[i].split(",")
-			var rule_dict = {}
-			for (var j=0; j<headers.length; j++) {
-				rule_dict[headers[j]] = split_rule[j]
+			if (split_rule[0] != headers[0]) { // ignore header
+				var rule_dict = {}
+				for (var j=0; j<headers.length; j++) {
+					rule_dict[headers[j]] = split_rule[j]
+				}
+				rule_list.push(rule_dict)
 			}
-			rule_list.push(rule_dict)
 		}
 	}
 	return rule_list
