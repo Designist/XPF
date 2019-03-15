@@ -1,0 +1,29 @@
+{
+  "name": "XPF",
+  "version": "1.0.0",
+  "description": "Converting orthography to approximate IPA using JavaScript.",
+  "main": "require.js",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.24.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Designist/XPF.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Designist/XPF/issues"
+  },
+  "homepage": "https://github.com/Designist/XPF#readme"
+}

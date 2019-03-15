@@ -1,0 +1,18 @@
+<html>
+<head>
+	<title>Translate to IPA</title>
+	<script type="text/javascript" src="require.js"></script>
+	<script type="text/javascript" src="build/bundle.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		function click() {
+			// alert("testing!");
+
+			let a2ipa = new AlphabetToIpa("mt.rules")
+			alert(a2ipa.translate("bniet"))
+		}
+	</script>
+	<button onclick="click()">Click me</button>
+</body>
+</html>

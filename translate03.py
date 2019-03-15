@@ -38,7 +38,7 @@ class subrule(object):
             ##
             while re.search("{.*}", value):
                 value = value.format(**classes)
-                print(value)
+                # print(value)
             self.__dict__[key] = value
 
         self.weight = float(self.weight)
